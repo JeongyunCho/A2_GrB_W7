@@ -1,34 +1,34 @@
 <?php
 $user = "root";
-$password = "root"; //windows users leave this blank
+$password = "";
 $host = "localhost";
-$db = "cooperInfo"; //db you named when importing
+$db = "cooperinfo";
 
 $conn = mysqli_connect($host, $user, $password, $db);
+mysqli_set_charset($conn, 'utf8');
 
-if(!$conn){
-    echo "connection didn't work..";
+if (!$conn) {
+    echo "connection didn't work...";
     exit;
 }
 
-//echo "connected!"
+//echo "connected!";
 
-// //get all the car data
+// get all the car data
 // $myQuery = "SELECT * FROM mainmodel";
 
-// // make the query
+// // make the query, get the result
 // $result = mysqli_query($conn, $myQuery);
 
 // $rows = array();
 
-// while($row = mysqli_fetch_assoc($result)){
+// while($row = mysqli_fetch_assoc($result)) {
 //     $rows[] = $row;
 // }
 
-// // Instead of getting all the cars get only car
-if (isset($_GET["carModel"])){ //check for a parameter
+if (isset($_GET["carModel"])) {// check for a parameter ?carModel=R58
     $car = $_GET["carModel"];
-    
+
     $myQuery = "SELECT * FROM mainmodel WHERE model = '$car'";
 
     $result = mysqli_query($conn, $myQuery);
@@ -39,6 +39,7 @@ if (isset($_GET["carModel"])){ //check for a parameter
     }
 }
 
-//send the entire result set as a json encode array
+// send the entire result set as a json encoded array
 echo json_encode($rows);
+
 ?>
