@@ -1,45 +1,52 @@
 <?php
-$user = "root";
-$password = "";
-$host = "localhost";
-$db = "cooperinfo";
 
-$conn = mysqli_connect($host, $user, $password, $db);
+$user = "root";
+$pass = "root";
+$host = "localhost";
+$db = "db_authoring_week7";
+
+$conn = mysqli_connect($host, $user, $pass, $db);
 mysqli_set_charset($conn, 'utf8');
 
 if (!$conn) {
-    echo "connection didn't work...";
-    exit;
+  echo 'Not connected';
+  exit;
 }
 
-//echo "connected!";
+// echo 'We are connected to Backend';
 
-// get all the car data
+// select all data from table
 // $myQuery = "SELECT * FROM mainmodel";
 
-// // make the query, get the result
-// $result = mysqli_query($conn, $myQuery);
 
+// $result = mysqli_query($conn, $myQuery);
 // $rows = array();
 
-// while($row = mysqli_fetch_assoc($result)) {
-//     $rows[] = $row;
-// }
+// while ($row = mysqli_fetch_assoc($result)) {
+//   $rows[] = $row;
+// };
 
-if (isset($_GET["carModel"])) {// check for a parameter ?carModel=R58
-    $car = $_GET["carModel"];
+//! above query updated
+// TODO identifier for unique pieces ----------------------
+//! http://localhost/authoring_w7/includes/connect.php?carModel=R58
 
-    $myQuery = "SELECT * FROM mainmodel WHERE model = '$car'";
 
-    $result = mysqli_query($conn, $myQuery);
-    $rows = array();
+if (isset($_GET["carModel"])) {
+  $car = $_GET['carModel'];
 
-    while($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
+  $myQuery = "SELECT * FROM mainmodel WHERE model = '$car'";
+
+  $result = mysqli_query($conn, $myQuery);
+  $rows = array();
+
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rows[] = $row;
+  }
+
 }
 
-// send the entire result set as a json encoded array
+// TODO identifier for unique pieces END -----------------------
+
 echo json_encode($rows);
 
 ?>
